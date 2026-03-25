@@ -3,23 +3,8 @@
 /raw_files
 /__pycache__
 /graphrag
-CLAUDE.md
+/CLAUDE.md
 # 忽略所有 .env 文件
-.env
-.env.*
-**/.env
-**/.env.*
-
-# 忽略常见变体
-.env.local
-.env.development
-.env.production
-.env.test
-.env.staging
-.env.*.local
-
-# 保留模板文件
+/.env
+# 但保留 .env.example 文件
 !.env.example
-!.env.template
-!.env.sample
-!.env.*.example
