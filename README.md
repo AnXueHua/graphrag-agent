@@ -16,6 +16,8 @@ Neo4j：https://neo4j.com/
 
 mineru：https://mineru.net/
 
+**使用前需要将所有.env.example复制为.env并填入自己的信息**
+
 ## 搭建知识图谱
 
 ### MINER
@@ -23,11 +25,13 @@ mineru：https://mineru.net/
 miner_api_parser.py：用于将pdf文件转为md文件类型，调用mineru api。（需要在.env文件进行配置）
 
 ### GraphRAG
-
+```
+python -m pip install graphrag
+```
 安装Microsoft GraphRAG后，在 graphrag 文件夹下进行初始化：
 
 ```
-graphrag init --root ./
+graphrag init --root ./graphrag/
 ```
 
 修改settings.yaml文件内容（将openai模型换成其他可用模型，本项目示例为阿里千问）：
