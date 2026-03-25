@@ -3,6 +3,7 @@
 /raw_files
 /__pycache__
 /graphrag
+CLAUDE.md
 # 忽略所有 .env 文件
 .env
 .env.*
