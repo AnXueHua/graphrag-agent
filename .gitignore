@@ -17,7 +17,7 @@
 .env.staging
 .env.*.local
 
-# 但保留模板文件（可选）
+# 保留模板文件
 !.env.example
 !.env.template
 !.env.sample
