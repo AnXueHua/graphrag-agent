@@ -5,6 +5,6 @@
 /graphrag
 /CLAUDE.md
 # 忽略所有 .env 文件
-/.env
+.env
 # 但保留 .env.example 文件
 !.env.example
