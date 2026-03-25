@@ -1,11 +1,14 @@
 import os
+from config import Config
 from langchain_openai import ChatOpenAI
 
-API_KEY = "sk-fc6e3b32697c4b5eb99e0b5d95adfa2e"
-BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+API_KEY = Config.LLM_API_KEY
+BASE_URL = Config.LLM_BASE_URL
+LLM_MODEL = Config.LLM_MODEL
 
+# 创建 LLM
 llm = ChatOpenAI(
-    model = "Qwen3-Max-2026-01-23",  # 百炼平台上的模型名称，如 qwen-max, qwen-plus 等
+    model = LLM_MODEL,  # 百炼平台上的模型名称，如 qwen-max, qwen-plus 等
     api_key = API_KEY,  
     base_url = BASE_URL, 
     temperature=0.7

@@ -32,6 +32,13 @@ class Config:
     if not NEO4J_PASSWORD:
         raise ValueError("❌ 错误: 未在 .env 文件中找到 NEO4J_PASSWORD")
 
+    # 4. LLM 配置
+    LLM_API_KEY = os.getenv("LLM_API_KEY")
+    if not LLM_API_KEY:
+        raise ValueError("❌ 错误: 未在 .env 文件中找到 LLM_API_KEY")
+    LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+    LLM_MODEL = os.getenv("LLM_MODEL", "Qwen3-Max-2026-01-23")
+
 # 确保必要的目录存在
 os.makedirs(Config.RAW_FILES_DIR, exist_ok=True)
 os.makedirs(Config.GRAPHRAG_INPUT_DIR, exist_ok=True)
