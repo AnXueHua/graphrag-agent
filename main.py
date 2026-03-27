@@ -11,16 +11,12 @@ credentials = service_account.Credentials.from_service_account_file(
 )
 
 # 创建 LLM
-llm = ChatGoogleGenerativeAI(
-    credentials=credentials,
-    model = Config.LLM_MODEL,  
-    api_key = Config.LLM_API_KEY,  
-    project = Config.PROJECT_ID,
-    vertexai=True,
-    temperature = 1,
+llm = ChatOpenAI(
+    model = LLM_MODEL,  # 百炼平台上的模型名称，如 qwen-max, qwen-plus 等
+    api_key = API_KEY,  
+    base_url = BASE_URL, 
+    temperature=0.7
 )
-
-agent = create_agent(llm)
 
 # 调用模型
 response = agent.invoke({"messages": [HumanMessage(content="你好，请介绍一下你自己。")]})
