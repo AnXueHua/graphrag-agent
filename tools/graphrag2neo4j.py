@@ -189,6 +189,31 @@ class GraphRAG2Neo4j:
         """
         self.batch_run(cypher_rel, rows)
 
+## GraphRAG数据导入Neo4j工具（需要转为增量导入）
+from langchain_core.tools import tool
+@tool("graphragToNeo4j",description="将graphrag数据导入neo4j数据库")
+def graphRAG2Neo4j():
+    """
+    将graphrag数据导入neo4j数据库.
+    Args:
+        目前是全量导入，后面需要修改为增量导入
+    Returns:
+        导入结果。
+    """
+    importer = GraphRAG2Neo4j(
+    NEO4J_URI = Config.NEO4J_URI,
+    NEO4J_USERNAME = Config.NEO4J_USERNAME,
+    NEO4J_PASSWORD = Config.NEO4J_PASSWORD
+    )
+    importer.create_index()
+    importer.import_documents()     # 导入文档
+    importer.import_text_units()    # 导入文本块（含向量）
+    importer.import_entities()      # 导入实体（含向量）
+    importer.import_relationships() # 导入关系
+    importer.import_communities()   # 导入社区（含向量）
+    importer.close()
+    return "GraphRAG数据已成功导入Neo4j数据库。"
+
 if __name__ == "__main__":
     importer = GraphRAG2Neo4j(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD)
     

@@ -1,10 +1,8 @@
 /.idea
 /.vscode
 /raw_files
-/__pycache__
+**/__pycache__
 /graphrag
 /CLAUDE.md
 # 忽略所有 .env 文件
 .env
-# 但保留 .env.example 文件
-!.env.example

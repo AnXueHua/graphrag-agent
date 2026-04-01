@@ -9,8 +9,8 @@ from config import Config
 MinerU解析文件
 '''
 class MinerUBatchParser:
-    def __init__(self):
-        self.token = Config.MINERU_API_KEY
+    def __init__(self, MINERU_API_KEY):
+        self.token = MINERU_API_KEY
         self.base_url = "https://mineru.net/api/v4"
         self.header = {
             "Content-Type": "application/json",
@@ -194,11 +194,44 @@ class MinerUBatchParser:
         except Exception as e:
             print(f"      ⚠️ 下载解压异常: {e}")
 
+## MinerU解析工具(补充增量解析)
+from langchain_core.tools import tool
+from typing import Optional, List
+@tool("parser_file",description="专业的文件解析工具，支持批量解析多种格式的文件(PDF、图片(png/jpg/jpeg/jp2/webp/gif/bmp)、Doc、Docx、Ppt、PPTx)")
+def minerU_parser(files: Optional[List[str]] = None, mode: str = "all") -> str:
+    """
+    解析文件。
+    Args:
+        files: 指定要解析的文件名列表。若为空，则扫描工作区。
+        mode: 'all' (解析所有), 'incremental' (仅解析新增或修改过的文件)。
+    Returns:
+        解析结果。
+    """
+    parser = MinerUBatchParser(Config.MINERU_API_KEY)
+    if mode == "all":
+        # 解析所有文件
+        raw_dir = Config.RAW_FILES_DIR
+        all_files = []
+        for root, dirs, file in os.walk(raw_dir):
+            for f in file:
+                all_files.append(os.path.join(root, f))
+        if all_files:
+            # 1. 执行上传
+            batch_id, id_map = parser.upload_files(all_files)
+            if batch_id and id_map:
+                # 2. 执行轮询 (阻塞直到完成)
+                results = parser.wait_for_completion(batch_id)
+                # 3. 执行下载和解压
+                parser.download_and_extract(results, id_map)
+            return f"成功处理 {len(all_files)} 个文件。解析结果已保存至输出目录。"
+    elif mode == "incremental":
+        pass # TODO 增量解析逻辑
+
 # ==========================================
 # 🚀 主程序执行流
 # ==========================================
 if __name__ == "__main__":
-    parser = MinerUBatchParser()
+    parser = MinerUBatchParser(Config.MINERU_API_KEY)
     
     # 0. 准备文件列表
     raw_dir = Config.RAW_FILES_DIR
