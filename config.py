@@ -30,9 +30,12 @@ class Config:
 
     # 4. LLM 配置
     LLM_API_KEY = os.getenv("LLM_API_KEY")
+    if not LLM_API_KEY:
+        raise ValueError("❌ 错误: 未在 .env 文件中找到 LLM_API_KEY")
     LLM_BASE_URL = os.getenv("LLM_BASE_URL")
     LLM_MODEL = os.getenv("LLM_MODEL")
     PROJECT_ID = os.getenv("PROJECT_ID")
+    EMB_MODEL = os.getenv("EMB_MODEL")
 
 # 确保必要的目录存在
 os.makedirs(Config.RAW_FILES_DIR, exist_ok=True)

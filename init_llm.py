@@ -10,14 +10,14 @@ credentials = service_account.Credentials.from_service_account_file(
     scopes=["https://www.googleapis.com/auth/cloud-platform"],
 )
 
-# 创建 LLM
-llm = ChatOpenAI(
-    model = LLM_MODEL,  # 百炼平台上的模型名称，如 qwen-max, qwen-plus 等
-    api_key = API_KEY,  
-    base_url = BASE_URL, 
-    temperature=0.7
+google_llm = ChatGoogleGenerativeAI(
+    credentials=credentials,
+    model = Config.LLM_MODEL,  
+    api_key = Config.LLM_API_KEY,  
+    project = Config.PROJECT_ID,
+    vertexai=True,
+    temperature = 0,
 )
 
-# 调用模型
-response = agent.invoke({"messages": [HumanMessage(content="你好，请介绍一下你自己。")]})
-print(response)
+# response = google_llm.invoke({"messages": [HumanMessage(content="你好，请介绍一下你自己。")]})
+# print(response)
