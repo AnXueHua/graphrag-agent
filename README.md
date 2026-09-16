@@ -111,7 +111,7 @@ input:
 上述内容完成后运行以下代码测试：
 
 ```
-graphrag index --root .
+graphrag index --root . --verbose
 ```
 
 #### （可选）提示词优化

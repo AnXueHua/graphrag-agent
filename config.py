@@ -15,8 +15,8 @@ class Config:
 
     # GraphRAG 项目路径
     GRAPHRAG_ROOT = os.getenv("GRAPHRAG_ROOT", str(BASE_DIR / "graphrag"))
-    GRAPHRAG_INPUT_DIR = os.path.join(GRAPHRAG_ROOT, "input")
-    GRAPHRAG_OUTPUT_DIR = os.path.join(GRAPHRAG_ROOT, "output")
+    GRAPHRAG_INPUT_DIR = os.path.join(GRAPHRAG_ROOT, "test_input")
+    GRAPHRAG_OUTPUT_DIR = os.path.join(GRAPHRAG_ROOT, "output_frozen_v2")
     GRAPHRAG_LANCEDB_DIR = os.path.join(GRAPHRAG_OUTPUT_DIR, "lancedb")
 
     # 2. MinerU 配置
@@ -36,6 +36,13 @@ class Config:
     LLM_MODEL = os.getenv("LLM_MODEL")
     PROJECT_ID = os.getenv("PROJECT_ID")
     EMB_MODEL = os.getenv("EMB_MODEL")
+
+    # 5. 其他配置
+    GRAPHRAG_KB_ID = "power_grid_frozen_v1"
+    NEO4J_BATCH_SIZE = 500
+    GRAPHRAG_IMPORT_VECTORS = False
+    GRAPHRAG_SYNC_DELETE_STALE = False
+    GRAPHRAG_VECTOR_TABLE = "vector_index"
 
 # 确保必要的目录存在
 os.makedirs(Config.RAW_FILES_DIR, exist_ok=True)
